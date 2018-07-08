@@ -18,13 +18,14 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+// Fetch all the info from the requester and feed it back via api call 
+app.get("/api/device-info", function (req, res) {
+  res.json({
+    ip: req.ip.slice(-9),
+    language: req.acceptsLanguages(),
+    software: req.headers['user-agent']
+  });
 });
-
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
